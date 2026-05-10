@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataFlow Analytics 2026 Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <h1 id="main-title">Визуализация Данных</h1>
+
+        <div id="stats-panel" class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Итого</div>
+                <div id="total-val" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Максимум</div>
+                <div id="max-val" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div id="min-label" class="stat-label">Минимум</div>
+                <div id="min-val" class="stat-value">0</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <input type="file" id="upload" accept=".csv, .xlsx, .xls" hidden>
+            <label for="upload" class="btn-main">Загрузить CSV / Excel</label>
+            
+            <button onclick="updateChartType('line')">Линия</button>
+            <button onclick="updateChartType('bar')">Столбцы</button>
+            <button onclick="updateChartType('pie')">Круг</button>
+            <button id="toggle-labels" onclick="toggleNumbers()">Цифры: ВКЛ</button>
+            <button class="btn-download" onclick="downloadChart()">PNG</button>
+            <button class="btn-reset" onclick="resetChart()">Сброс</button>
+        </div>
+
+        <div id="column-selectors" style="display:none; margin: 15px 0; gap: 15px; justify-content: center; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
+            <div>
+                <span style="font-size: 0.9rem; color: #888;">Названия:</span>
+                <select id="label-select" onchange="applyColumnChange()" style="background: #333; color: #fff; border: 1px solid #555; padding: 5px; border-radius: 5px;"></select>
+            </div>
+            <div>
+                <span style="font-size: 0.9rem; color: #888;">Данные:</span>
+                <select id="value-select" onchange="applyColumnChange()" style="background: #333; color: #fff; border: 1px solid #555; padding: 5px; border-radius: 5px;"></select>
+            </div>
+        </div>
+
+        <div class="canvas-box">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
